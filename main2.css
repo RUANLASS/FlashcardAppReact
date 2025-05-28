@@ -161,3 +161,9 @@ input::placeholder {
     opacity: 1; /* Ensures placeholder is not transparent in Firefox */
 }
 
+.table-responsive-wrapper {
+    overflow-x: auto; /* Allows horizontal scrolling if table content is too wide */
+    margin-top: 20px; /* Space above the table */
+    border: 1px solid #ddd; /* Add a border to the wrapper for clarity */
+    border-radius: 8px; /* Match app container radius */
+}
