@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="main2.css"> 
+</head>
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+    <script type="text/babel">
+    class CardMode extends React.Component{
+        constructor(props){
+            super(props)
+        }
+        render(){
+            if (this.props.frontMode){
+                return (
+                <center>
+                <div>
+                <h1>Card Viewer</h1>
+                <div className="box">
+                    <br />
+                    <br />
+                    <h2> {this.props.cards[this.props.current].front}</h2>
+                    <br /><br /><br />
+                    <h3> {this.props.current+1} </h3>
+                </div>
+                <button onClick={this.props.flipCard}> Flip </button>
+                <button onClick={this.props.nextCard}> Next Card </button>
+                <button onClick={this.props.switchMode}> Switch Mode </button>
+                </div>
+                </center>
+                );
+            }
+            else {
+                return (
+                <center>
+                <div>
+                <h1>Card Viewer</h1>
+                <div className="box">
+                    <br />
+                    <br />
+                    <h2> {this.props.cards[this.props.current].back}</h2>
+                    <br />
+                    <br />
+                    <h3> {this.props.current+1} </h3>
+                </div>
+                <button onClick={this.props.flipCard}> Flip </button>
+                <button onClick={this.props.nextCard}> Next Card </button>
+                <button onClick={this.props.switchMode}> Switch Mode </button>
+                </div>
+                </center>
+            ); 
+            }
+        }
+    
+
+    }
+
+    class TableMode extends React.Component{
+        constructor(props){
+            super(props)
+            this.state={
+                front:"",
+                back:""
+            }
+        }
+        render(){
+            const rows = this.props.cards.map((card,i)=> {
+                return (
+                    <tr key={i}>
+                        <td>{card.front}</td>
+                        <td>{card.back}</td>
+                        <td><button data-index={i} onClick={this.delCard}>Delete</button></td>
+                    </tr>
+                )
+            })
+            return (
+                <div>
+                <h2>Card Editor </h2>
+                <table>
+                    <thead>
+                        <tr>
+                        <th> Front </th>
+                        <th> Back </th>
+                        <th> Delete </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <br />
+                <br />
+                <input onChange={this.update} name="front" placeholder="Front of the card" value={this.state.front}/>
+                <input onChange={this.update} name="back" placeholder="Back of the card" value={this.state.back}/>
+                <button onClick={this.Adder} > Add </button>
+                <br />
+                <br />
+                <button onClick={this.props.switchMode}> Switch Mode </button>
+                </div> 
+            );
+        }
+
+       update=(event)=>{
+            this.setState({
+                [event.target.name]:event.target.value
+            })
+       }
+
+       Adder=()=> {
+            this.props.addCard(this.state.front, this.state.back)
+            this.setState({
+                front:"",
+                back:""
+            })
+       }
+
+       delCard=(event)=>{
+            this.props.delCard(event.target.dataset.index)
+       }
+    }
+
+    class App extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                TableMode: true,
+                cards:[{front:"test1",back:"test123"},{front:"test2",back:"test234"}],
+                frontMode:true,
+                current:0
+            }
+        }
+        render(){
+            if (this.state.TableMode){
+                return (
+                    <center>
+                    <div>
+                        <TableMode 
+                        cards = {this.state.cards} 
+                        switchMode={this.switchMode}
+                        addCard = {this.addCard}
+                        delCard = {this.delCard}
+                        />
+                    </div>
+                    </center>
+                );
+            }
+            else{
+                return (
+                    <CardMode 
+                    cards = {this.state.cards}
+                    switchMode={this.switchMode}
+                    flipCard = {this.flipCard}
+                    frontMode = {this.state.frontMode}
+                    nextCard = {this.nextCard}
+                    current = {this.state.current}
+                    />
+                )
+            }
+        }
+
+        switchMode = () => {
+            this.setState({
+                TableMode: !this.state.TableMode
+            })
+        }
+
+        addCard = (front, back) => {
+            const card = {front: front, back: back}
+            this.setState({
+                cards:[...this.state.cards,card]
+            })
+        }
+
+        delCard = (index) => {
+            this.setState(state=> {
+                const cards = this.state.cards
+                cards.splice(index,1)
+                return {cards:cards}
+            })
+        }
+        flipCard = () => {
+            this.setState({
+                frontMode: !this.state.frontMode
+            })
+        }
+        nextCard = () => {
+            const numCards = this.state.cards.length;
+
+            // Handle empty array case first, so we don't try to divide by zero
+            if (numCards === 0) {
+                this.setState({
+                    current: 0, // Stay at 0 if no cards
+                    frontMode: true // Reset to front mode
+                });
+                return; // Exit the function
+            }
+
+            // Calculate the next index using the modulo operator
+            const nextIndex = (this.state.current + 1) % numCards;
+
+            this.setState({
+                current: nextIndex,
+                frontMode: true // Always reset to front mode for the new card
+            });
+        }
+
+        
+    }
+
+    ReactDOM.render(<App />, document.querySelector('#app2'));
+    </script>
+</body>
+</html>
+
+<!--Running the code: cd to the folder on Terminal, type open index.html-->
+
+
+
+
+
+

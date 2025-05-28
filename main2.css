@@ -1,0 +1,163 @@
+/* Basic Resets & Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f7f6; /* Light gray background */
+    color: #333;
+    display: flex; /* Use flex to center the app vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+#app2 {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px; /* Max width for the app container */
+    width: 100%;
+    text-align: center;
+}
+
+h1, h2, h3 {
+    color: #2c3e50; /* Dark blue/gray for headings */
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+button {
+    background-color: #3498db; /* Blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Input Fields */
+input[type="text"] {
+    width: calc(50% - 20px); /* Adjust width considering margin */
+    padding: 10px;
+    margin: 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Table Mode Specifics */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #ecf0f1; /* Light gray for table headers */
+    color: #555;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping for table rows */
+}
+
+/* Card Mode Specifics */
+.box {
+    background-color: #ecf0f1; /* Light gray for card background */
+    border: 1px solid #bdc3c7; /* Subtle border */
+    border-radius: 8px;
+    padding: 30px;
+    min-height: 180px; /* Ensure a consistent card height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+}
+
+.box h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #34495e; /* Darker text for card content */
+}
+
+.box h3 {
+    font-size: 1rem;
+    color: #7f8c8d; /* Lighter text for card number */
+    margin-top: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+    #app2 {
+        padding: 20px;
+    }
+    input[type="text"] {
+        width: calc(100% - 20px); /* Full width on smaller screens */
+        margin: 5px 0;
+    }
+    button {
+        width: calc(100% - 10px); /* Full width on smaller screens */
+        margin: 5px 0;
+    }
+    .box {
+        min-height: 150px;
+        padding: 20px;
+    }
+    .box h2 {
+        font-size: 1.5rem;
+    }
+    input[type="text"] {
+        width: calc(100% - 20px); /* Full width on small screens */
+        margin: 10px 0; /* Adjust margin for stacking */
+    }
+}
+
+/* Styling for all text input fields */
+input{
+    width: calc(50% - 20px); /* Takes up about half the container width, accounting for margin */
+    padding: 12px 15px; /* Good internal spacing */
+    margin: 10px 5px; /* Space around each input */
+    border: 1px solid #c0d3e4; /* Light blue-gray border for a soft look */
+    border-radius: 8px; /* Slightly more rounded corners for modern feel */
+    font-size: 1rem; /* Standard font size */
+    color: #333; /* Darker text for readability */
+    background-color: #fcfdff; /* Very light background for inputs */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for focus effects */
+}
+
+/* Style for when an input field is focused (clicked on) */
+input:focus {
+    border-color: #3498db; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Subtle blue glow */
+    outline: none; /* Removes the default browser outline */
+}
+
+/* Placeholder text styling */
+input::placeholder {
+    color: #95a5a6; /* Lighter gray for placeholder text */
+    opacity: 1; /* Ensures placeholder is not transparent in Firefox */
+}
+
